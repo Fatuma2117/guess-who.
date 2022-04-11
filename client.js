@@ -3,9 +3,10 @@ $(document).ready(readyNow);
 
 function readyNow() {
     for (let user of people) {
-       $('body').append(`<img src="https://github.com/${user.githubUsername}.png?size=250" alt="Profile image of Chris">`)
+       $('body').append(`<img data-nameMatch=${user.name} src="https://github.com/${user.githubUsername}.png?size=250" alt="Profile image of Chris">`)
     }
     renderRandomName();
+    $('img').on('click', clickImage)
 }
 
 function randomNumber(min, max){
@@ -14,7 +15,16 @@ function randomNumber(min, max){
 console.log(randomNumber(0 ,6));
 console.log(people[randomNumber(0,6)].name);
 
+let generatedName = people[randomNumber(0,6)].name;
+
 function renderRandomName(){
-    let generatedName = people[randomNumber(0,6)].name;
     $('#displayedName').append(`${generatedName}`);
+}
+
+function clickImage(){
+    console.log($(this).data());
+    console.log(generatedName);
+    if ($(this).data().name === generatedName){
+        console.log('correct');
+    }
 }
